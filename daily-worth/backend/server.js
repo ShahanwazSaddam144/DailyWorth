@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const Auth = require("./controllers/auth");
+const Expense = require("./controllers/expense");
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ const limiter = rateLimit({
 
 // Routes
 app.use("/api/auth", Auth, limiter);
+app.use("/api", Expense, limiter);
 
 // Mongoose connect
 mongoose
