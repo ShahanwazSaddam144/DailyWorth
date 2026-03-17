@@ -8,6 +8,7 @@ const Navbar = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
@@ -53,77 +54,148 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
+      {/* NAVBAR */}
+      <nav className="flex items-center justify-between px-6 py-4 bg-white border-b shadow-sm relative">
         <h1
-          className="text-xl font-bold cursor-pointer"
+          className="text-xl font-bold text-slate-800 cursor-pointer"
           onClick={() => router.push("/")}
         >
-          My App
+          DailyWorth
         </h1>
 
-        <div className="hidden md:flex items-center gap-6">
-          <button onClick={() => router.push("/")}>Home</button>
-          <button onClick={() => router.push("/about")}>About</button>
-          <button onClick={() => router.push("/dashboard")}>Dashboard</button>
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center gap-8 text-slate-700 font-medium">
+          <button onClick={() => router.push("/")} className="hover:text-blue-600">
+            Home
+          </button>
+
+          <button
+            onClick={() => router.push("/about")}
+            className="hover:text-blue-600"
+          >
+            About
+          </button>
+
+          <button
+            onClick={() => router.push("/dashboard")}
+            className="hover:text-blue-600"
+          >
+            Dashboard
+          </button>
+
+          {user ? (
+            <div className="relative">
+              <div
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold cursor-pointer"
+              >
+                {initials}
+              </div>
+
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-3 w-32 bg-white border rounded-lg shadow-md">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left px-4 py-2 text-red-500 hover:bg-slate-100"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <button
+              onClick={() => router.push("/auth")}
+              className="text-blue-600 font-semibold"
+            >
+              Login
+            </button>
+          )}
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden text-2xl text-slate-800"
+          onClick={() => setMenuOpen(true)}
+        >
+          ☰
+        </button>
+      </nav>
+
+      {/* Mobile Aside Menu */}
+      <div
+        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ${
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex justify-between items-center px-6 py-4 border-b">
+          <h2 className="font-bold text-lg">Menu</h2>
+          <button onClick={() => setMenuOpen(false)}>✕</button>
+        </div>
+
+        <div className="flex flex-col gap-6 p-6 text-slate-700 font-medium">
+          <button
+            onClick={() => {
+              router.push("/");
+              setMenuOpen(false);
+            }}
+          >
+            Home
+          </button>
+
+          <button
+            onClick={() => {
+              router.push("/about");
+              setMenuOpen(false);
+            }}
+          >
+            About
+          </button>
+
+          <button
+            onClick={() => {
+              router.push("/dashboard");
+              setMenuOpen(false);
+            }}
+          >
+            Dashboard
+          </button>
 
           {user ? (
             <>
-              <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-bold">
-                {initials}
+              <div className="flex justify-center">
+                <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
+                  {initials}
+                </div>
               </div>
 
               <button
                 onClick={handleLogout}
-                className="text-red-400"
+                className="text-red-500 text-center"
               >
                 Logout
               </button>
             </>
           ) : (
             <button
-              onClick={() => router.push("/auth")}
-              className="text-blue-400"
+              onClick={() => {
+                router.push("/auth");
+                setMenuOpen(false);
+              }}
+              className="text-blue-600"
             >
               Login
             </button>
           )}
         </div>
+      </div>
 
-        <button
-          className="md:hidden text-2xl"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          ☰
-        </button>
-      </nav>
-
+      {/* Background overlay */}
       {menuOpen && (
-        <div className="md:hidden flex flex-col gap-4 px-6 py-4 border-b border-slate-800">
-          <button onClick={() => router.push("/")}>Home</button>
-          <button onClick={() => router.push("/about")}>About</button>
-          <button onClick={() => router.push("/dashboard")}>Dashboard</button>
-
-          {user ? (
-            <>
-              <div className="m-auto">
-                <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-bold">
-                  {initials}
-                </div>
-              </div>
-
-              <button onClick={handleLogout} className="text-red-400">
-                Logout
-              </button>
-            </>
-          ) : (
-            <button
-              onClick={() => router.push("/auth")}
-              className="text-blue-400"
-            >
-              Login
-            </button>
-          )}
-        </div>
+        <div
+          onClick={() => setMenuOpen(false)}
+          className="fixed inset-0 bg-black/30 md:hidden"
+        />
       )}
     </>
   );
