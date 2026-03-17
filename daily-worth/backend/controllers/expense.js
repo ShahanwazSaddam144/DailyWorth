@@ -40,4 +40,33 @@ router.post("/expense", authMiddleware, async (req, res) => {
   }
 });
 
+router.get("/expense", authMiddleware, async (req, res) => {
+  try {
+
+    const userEmail = req.user.email;
+
+    const expenses = await Expense.find({ email: userEmail }).sort({ createdAt: 1 });
+
+    if (!expenses || expenses.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No expense data found for this user",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Expense fetched successfully",
+      data: expenses,
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
 module.exports = router;
