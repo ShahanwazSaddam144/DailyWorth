@@ -31,7 +31,7 @@ export default function Dashboard() {
     <>
       <Navbar />
       <section className="bg-gradient-to-b from-gray-50 to-white text-gray-900 pt-24">
-        <div className="container mx-auto flex flex-col-reverse md:flex-row items-center px-6 md:px-12 lg:px-24 mb-10">
+        <div className="mx-auto flex flex-col-reverse md:flex-row items-center px-6 md:px-12 lg:px-24 mb-10 min-h-screen">
           {/* Left content */}
           <div className="w-full md:w-1/2 flex flex-col items-start text-left gap-6">
             <h1 className="text-4xl sm:text-5xl font-extrabold">
