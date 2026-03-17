@@ -33,21 +33,21 @@ export default function Dashboard() {
       <section className="bg-gradient-to-b from-gray-50 to-white text-gray-900 pt-24">
         <div className="mx-auto flex flex-col-reverse md:flex-row items-center px-6 md:px-12 lg:px-24 mb-10 min-h-screen">
           {/* Left content */}
-          <div className="w-full md:w-1/2 flex flex-col items-start text-left gap-6">
-            <h1 className="text-4xl sm:text-5xl font-extrabold">
+          <div className="w-full flex flex-col items-start text-left gap-6">
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-center">
               Hey, <span className="text-green-600">{user.name}</span>
             </h1>
-            <p className="text-gray-700 text-lg sm:text-xl">
+            <p className="text-gray-700 text-lg sm:text-xl text-center">
               Take control of your monthly spending and start saving smarter
               today. DailyWorth helps you track expenses, set budgets, and grow
               your savings effortlessly.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mt-4">
+            <div className="block m-auto mt-4">
               <button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-md shadow-lg hover:scale-105 transition-transform">
                 Start Saving
               </button>
-              <button className="px-6 py-3 border border-gray-300 text-gray-800 font-semibold rounded-md hover:bg-gray-100 transition">
+              <button className="px-6 py-3 ml-2 border border-gray-300 text-gray-800 font-semibold rounded-md hover:bg-gray-100 transition">
                 Learn More
               </button>
             </div>
