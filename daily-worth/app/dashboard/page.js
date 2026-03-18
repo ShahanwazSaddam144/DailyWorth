@@ -4,6 +4,7 @@ import Hero from '../components/Hero'
 import AuthGuard from '../components/AuthGuard'
 import AddIncome from '../components/AddIncome'
 import IncomeCharts from '../components/IncomeCharts'
+import ExpenseTips from '../components/ExpenseTips'
 
 const Dashboard = () => {
   return (
@@ -13,6 +14,7 @@ const Dashboard = () => {
     <Hero />
     <AddIncome />
     <IncomeCharts />
+    <ExpenseTips />
     </AuthGuard> 
     </>
   )
