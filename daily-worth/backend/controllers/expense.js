@@ -5,9 +5,23 @@ const { authMiddleware } = require("../middleware/authMiddleware");
 
 router.post("/expense", authMiddleware, async (req, res) => {
   try {
-    const { monthlySalary, monthlyBudget, monthlySaving, dailyBudget } = req.body;
+    const {
+      monthlySalary,
+      monthlyBudget,
+      dailyBudget,
+      dailySpent,
+      remaining,
+      saved,
+    } = req.body;
 
-    if (!monthlySalary || !monthlyBudget || !monthlySaving || !dailyBudget) {
+    if (
+      monthlySalary === undefined ||
+      monthlyBudget === undefined ||
+      dailyBudget === undefined ||
+      dailySpent === undefined ||
+      remaining === undefined ||
+      saved === undefined
+    ) {
       return res.status(400).json({
         success: false,
         message: "Please fill all fields",
@@ -19,8 +33,10 @@ router.post("/expense", authMiddleware, async (req, res) => {
       email: req.user.email,
       monthlySalary,
       monthlyBudget,
-      monthlySaving,
       dailyBudget,
+      dailySpent,
+      remaining,
+      saved,
     });
 
     await newExpense.save();
@@ -30,9 +46,7 @@ router.post("/expense", authMiddleware, async (req, res) => {
       message: "Expense Saved Successfully",
       data: newExpense,
     });
-
   } catch (err) {
-    console.error(err);
     res.status(500).json({
       success: false,
       message: "Server Error",
@@ -42,10 +56,9 @@ router.post("/expense", authMiddleware, async (req, res) => {
 
 router.get("/expense", authMiddleware, async (req, res) => {
   try {
-
-    const userEmail = req.user.email;
-
-    const expenses = await Expense.find({ email: userEmail }).sort({ createdAt: 1 });
+    const expenses = await Expense.find({
+      email: req.user.email,
+    }).sort({ createdAt: 1 });
 
     if (!expenses || expenses.length === 0) {
       return res.status(404).json({
@@ -59,9 +72,7 @@ router.get("/expense", authMiddleware, async (req, res) => {
       message: "Expense fetched successfully",
       data: expenses,
     });
-
   } catch (err) {
-    console.error(err);
     res.status(500).json({
       success: false,
       message: "Server Error",

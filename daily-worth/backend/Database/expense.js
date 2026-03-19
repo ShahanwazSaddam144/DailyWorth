@@ -27,13 +27,25 @@ const expenseSchema = new mongoose.Schema(
       min: 0,
     },
 
-    monthlySaving: {
+    dailyBudget: {
       type: Number,
       required: true,
       min: 0,
     },
 
-    dailyBudget: {
+    dailySpent: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+
+    remaining: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+
+    saved: {
       type: Number,
       required: true,
       min: 0,

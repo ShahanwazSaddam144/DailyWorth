@@ -7,8 +7,10 @@ const FinancialHealthScore = () => {
   const [form, setForm] = useState({
     monthlySalary: 0,
     monthlyBudget: 0,
-    monthlySaving: 0,
     dailyBudget: 0,
+    dailySpent: 0,
+    remaining: 0,
+    saved: 0,
   });
 
   const [score, setScore] = useState(0);
@@ -28,10 +30,12 @@ const FinancialHealthScore = () => {
         const latest = data.data[data.data.length - 1];
 
         setForm({
-          monthlySalary: latest.monthlySalary || 0,
-          monthlyBudget: latest.monthlyBudget || 0,
-          monthlySaving: latest.monthlySaving || 0,
-          dailyBudget: latest.dailyBudget || 0,
+          monthlySalary: Number(latest.monthlySalary) || 0,
+          monthlyBudget: Number(latest.monthlyBudget) || 0,
+          dailyBudget: Number(latest.dailyBudget) || 0,
+          dailySpent: Number(latest.dailySpent) || 0,
+          remaining: Number(latest.remaining) || 0,
+          saved: Number(latest.saved) || 0,
         });
       } catch (err) {
         console.error(err);
@@ -41,30 +45,31 @@ const FinancialHealthScore = () => {
     fetchExpense();
   }, []);
 
-useEffect(() => {
-  const salary = Number(form.monthlySalary);
-  const budget = Number(form.monthlyBudget);
-  const saving = Number(form.monthlySaving);
-  const daily = Number(form.dailyBudget);
+  useEffect(() => {
+    const salary = Number(form.monthlySalary) || 0;
+    const budget = Number(form.monthlyBudget) || 0;
+    const saved = Number(form.saved) || 0;
+    const remaining = Number(form.remaining) || 0;
+    const dailyBudget = Number(form.dailyBudget) || 0;
 
-  if (salary === 0) {
-    setScore(0);
-    setStatus("");
-    return;
-  }
+    if (salary === 0) {
+      setScore(0);
+      setStatus("");
+      return;
+    }
 
-  let s = 0;
+    let s = 0;
 
-  if (saving >= salary * 0.2) s += 40;
-  if (budget <= salary * 0.7) s += 30;
-  if (daily <= budget / 30) s += 30;
+    if (saved >= salary * 0.2) s += 40;
+    if (budget <= salary * 0.7) s += 30;
+    if (remaining >= 0 && dailyBudget > 0) s += 30;
 
-  setScore(s);
+    setScore(s);
 
-  if (s < 40) setStatus("Poor");
-  else if (s < 70) setStatus("Average");
-  else setStatus("Excellent");
-}, [form]);
+    if (s < 40) setStatus("Poor");
+    else if (s < 70) setStatus("Average");
+    else setStatus("Excellent");
+  }, [form]);
 
   const getColor = () => {
     if (score < 40) return "from-red-400 to-red-600";

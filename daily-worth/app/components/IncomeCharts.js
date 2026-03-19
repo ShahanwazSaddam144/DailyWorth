@@ -47,16 +47,18 @@ const IncomeCharts = () => {
       setData(expenses);
 
       if (expenses.length > 0) {
-        const salaries = expenses.map((e) => Number(e.monthlySalary));
-        const budgets = expenses.map((e) => Number(e.monthlyBudget));
-        const savings = expenses.map((e) => Number(e.monthlySaving));
-        const daily = expenses.map((e) => Number(e.dailyBudget));
+        const salaries = expenses.map((e) => Number(e.monthlySalary) || 0);
+        const budgets = expenses.map((e) => Number(e.monthlyBudget) || 0);
+        const savings = expenses.map((e) => Number(e.saved) || 0);
+        const daily = expenses.map((e) => Number(e.dailyBudget) || 0);
 
-        const avgSalary = salaries.reduce((a, b) => a + b, 0) / salaries.length;
+        const avgSalary =
+          salaries.reduce((a, b) => a + b, 0) / salaries.length || 0;
         const highestSalary = Math.max(...salaries);
         const maxDailyBudget = Math.max(...daily);
-        const totalSaving = savings.reduce((a, b) => a + b, 0);
-        const avgBudget = budgets.reduce((a, b) => a + b, 0) / budgets.length;
+        const totalSaving = savings.reduce((a, b) => a + b, 0) || 0;
+        const avgBudget =
+          budgets.reduce((a, b) => a + b, 0) / budgets.length || 0;
 
         setStats({
           avgSalary: avgSalary.toFixed(2),
@@ -73,16 +75,15 @@ const IncomeCharts = () => {
 
   const chartData = data.map((item, index) => ({
     name: `Month ${index + 1}`,
-    salary: Number(item.monthlySalary),
-    budget: Number(item.monthlyBudget),
-    saving: Number(item.monthlySaving),
-    daily: Number(item.dailyBudget),
+    salary: Number(item.monthlySalary) || 0,
+    budget: Number(item.monthlyBudget) || 0,
+    saving: Number(item.saved) || 0,
+    daily: Number(item.dailyBudget) || 0,
   }));
 
   return (
     <section className="mt-20 px-6 lg:px-12 flex flex-col gap-12">
 
-      {/* TITLE */}
       <header className="flex flex-col gap-2 animate-fadeIn">
         <h1 className="text-3xl font-bold text-gray-900">
           Financial Insights
@@ -92,7 +93,6 @@ const IncomeCharts = () => {
         </p>
       </header>
 
-      {/* STAT CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
         {[
           {
@@ -139,10 +139,8 @@ const IncomeCharts = () => {
         ))}
       </div>
 
-      {/* CHARTS */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 animate-fadeIn">
 
-        {/* SALARY CHART */}
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="flex items-center gap-2 mb-4 font-semibold text-gray-700">
             <BarChart3 size={18} />
@@ -173,7 +171,6 @@ const IncomeCharts = () => {
           </ResponsiveContainer>
         </div>
 
-        {/* DAILY BUDGET CHART */}
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="flex items-center gap-2 mb-4 font-semibold text-gray-700">
             <BarChart3 size={18} />
@@ -206,7 +203,6 @@ const IncomeCharts = () => {
 
       </div>
 
-      {/* ANIMATION CLASSES */}
       <style jsx>{`
         @keyframes fadeIn {
           0% { opacity: 0; transform: translateY(10px); }
