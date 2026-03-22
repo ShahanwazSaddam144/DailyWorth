@@ -106,7 +106,7 @@ const AddIncome = () => {
         return;
       }
 
-      showAlert("success", "Expense + Daily data saved");
+      showAlert("success", "✅ Expense + Daily data saved successfully!");
 
       setForm({
         monthlySalary: "",
@@ -122,33 +122,36 @@ const AddIncome = () => {
   };
 
   return (
-    <section className="mt-20 px-6 lg:px-12 flex flex-col gap-12">
+    <section className="py-12 px-6 lg:px-12 flex flex-col gap-12 bg-gradient-to-b from-transparent to-slate-900/20">
       {alert.show && (
         <div
-          className={`fixed top-24 right-6 px-6 py-3 rounded-xl text-white z-50 shadow-lg transition-all duration-300 ${
-            alert.type === "success" ? "bg-green-500" : "bg-red-500"
+          className={`fixed top-24 right-6 px-6 py-4 rounded-xl text-white z-50 shadow-2xl animate-slideInDown font-semibold ${
+            alert.type === "success"
+              ? "bg-green-500/90 border border-green-400/50"
+              : "bg-red-500/90 border border-red-400/50"
           }`}
         >
           {alert.message}
         </div>
       )}
 
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
-          Monthly Expense Planner
+      <div className="flex flex-col gap-2 animate-slideInLeft">
+        <h1 className="text-4xl font-bold text-white tracking-tight">
+          💰 Monthly Expense Planner
         </h1>
-        <p className="text-gray-500 text-sm">
-          Smart budgeting with daily tracking
+        <p className="text-slate-400 text-base">
+          Smart budgeting with daily tracking and financial insights
         </p>
       </div>
 
       <div className="flex flex-col xl:flex-row gap-10 items-start">
         <form
           onSubmit={handleSubmit}
-          className="bg-white/90 backdrop-blur-xl shadow-2xl rounded-2xl p-8 w-full max-w-4xl flex flex-col gap-8 transition-all duration-300 hover:shadow-3xl"
+          className="bg-slate-800/40 backdrop-blur-xl border border-slate-700 rounded-2xl p-8 w-full max-w-4xl flex flex-col gap-8 transition-all duration-300 hover:border-cyan-500/50 animate-slideInLeft shadow-2xl"
         >
-          <div className="flex items-center gap-2 text-gray-700 font-semibold">
-            <TrendingUp size={18} /> Financial Details
+          <div className="flex items-center gap-2 text-cyan-400 font-semibold text-lg">
+            <DollarSign size={24} />
+            Income & Budget Information
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -181,8 +184,9 @@ const AddIncome = () => {
             />
           </div>
 
-          <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 flex flex-col gap-5 transition-all duration-300 hover:shadow-md">
-            <h2 className="font-semibold text-gray-800">
+          <div className="bg-slate-700/40 border border-slate-600 rounded-2xl p-6 flex flex-col gap-5 transition-all duration-300 hover:border-cyan-500/50">
+            <h2 className="font-semibold text-cyan-300 text-lg flex items-center gap-2">
+              <Wallet size={20} />
               Daily Expense Tracker
             </h2>
 
@@ -215,19 +219,27 @@ const AddIncome = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-sm text-gray-500">
-            <Info size={14} /> All data stored securely
+          <div className="flex items-center gap-2 text-sm text-slate-400">
+            <Info size={14} /> All data stored securely and encrypted
           </div>
 
-          <button className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02] hover:shadow-xl active:scale-95">
-            Save Expense
+          <button
+            type="submit"
+            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50 active:scale-95 w-full"
+          >
+            💾 Save Expense & Budget
           </button>
         </form>
 
-        <div className="bg-white shadow-xl rounded-2xl p-6 w-full max-w-sm flex flex-col gap-4">
-          <h2 className="text-lg font-bold text-gray-800">
-            Budget Breakdown
+        <div className="bg-slate-800/40 backdrop-blur border border-slate-700 rounded-2xl p-6 w-full max-w-sm flex flex-col gap-4 animate-slideInRight">
+          <h2 className="text-lg font-bold text-cyan-300 flex items-center gap-2">
+            <TrendingUp size={20} />
+            Summary
           </h2>
+
+          <h3 className="text-sm font-semibold text-slate-400">
+            Budget Breakdown
+          </h3>
 
           <div className="flex flex-col gap-3">
             {breakdown.map((item, i) => (
@@ -259,10 +271,10 @@ const AddIncome = () => {
 };
 
 const Input = ({ icon, ...props }) => (
-  <div className="flex items-center gap-3 px-4 py-3 bg-white rounded-xl shadow-sm border border-gray-100 transition-all duration-200 focus-within:shadow-md focus-within:border-blue-400">
-    <span>{icon}</span>
+  <div className="flex items-center gap-3 px-4 py-3 bg-slate-700/40 rounded-lg border border-slate-600 transition-all duration-200 focus-within:border-cyan-500 focus-within:ring-2 focus-within:ring-cyan-500/20 hover:border-slate-500">
+    <span className="text-slate-400">{icon}</span>
     <input
-      className="w-full bg-transparent outline-none text-sm"
+      className="w-full bg-transparent outline-none text-sm text-white placeholder-slate-500"
       {...props}
     />
   </div>

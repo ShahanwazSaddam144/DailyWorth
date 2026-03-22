@@ -79,59 +79,59 @@ const FinancialHealthScore = () => {
 
   return (
     <section className="mt-20 px-6 lg:px-12 flex flex-col gap-8">
-      <header className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold text-gray-900">
+      <header className="flex flex-col gap-2 animate-slideInDown">
+        <h1 className="text-3xl font-bold text-white">
           Financial Health Score
         </h1>
-        <p className="text-gray-600">
+        <p className="text-slate-300">
           Analyze your financial stability based on your income and spending.
         </p>
       </header>
 
-      <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 flex flex-col gap-6 max-w-3xl">
-        <div className="flex items-center gap-2 text-gray-700 font-semibold">
+      <div className="bg-slate-800/40 border border-slate-700 rounded-xl p-8 flex flex-col gap-6 max-w-3xl hover:border-cyan-500/50 transition-all card-hover animate-slideInUp">
+        <div className="flex items-center gap-2 text-white font-semibold">
           <Activity size={18} />
           Score Overview
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="text-5xl font-bold text-gray-900">
+          <div className="text-5xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text">
             {score}
-            <span className="text-lg text-gray-500"> / 100</span>
+            <span className="text-lg text-slate-400 ml-2"> / 100</span>
           </div>
 
           <div
-            className={`px-4 py-2 rounded-full text-white text-sm font-semibold bg-gradient-to-r ${getColor()}`}
+            className={`px-6 py-3 rounded-full text-white text-sm font-semibold bg-gradient-to-r ${getColor()} shadow-lg`}
           >
             {status}
           </div>
         </div>
 
-        <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+        <div className="w-full h-3 bg-slate-700 rounded-full overflow-hidden">
           <div
             style={{ width: `${score}%` }}
             className={`h-full bg-gradient-to-r ${getColor()} transition-all duration-500`}
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
-          <div className="bg-gray-50 p-4 rounded-lg flex flex-col gap-1">
-            <span className="font-semibold text-gray-800">Savings</span>
-            <span>Target: 20% of income</span>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-300">
+          <div className="bg-slate-700/40 border border-slate-600 p-4 rounded-lg flex flex-col gap-1 hover:border-cyan-500/50 transition-all">
+            <span className="font-semibold text-white">Savings</span>
+            <span className="text-slate-400">Target: 20% of income</span>
           </div>
 
-          <div className="bg-gray-50 p-4 rounded-lg flex flex-col gap-1">
-            <span className="font-semibold text-gray-800">Budget</span>
-            <span>Target: ≤ 70% of income</span>
+          <div className="bg-slate-700/40 border border-slate-600 p-4 rounded-lg flex flex-col gap-1 hover:border-cyan-500/50 transition-all">
+            <span className="font-semibold text-white">Budget</span>
+            <span className="text-slate-400">Target: ≤ 70% of income</span>
           </div>
 
-          <div className="bg-gray-50 p-4 rounded-lg flex flex-col gap-1">
-            <span className="font-semibold text-gray-800">Daily Spend</span>
-            <span>Target: within daily limit</span>
+          <div className="bg-slate-700/40 border border-slate-600 p-4 rounded-lg flex flex-col gap-1 hover:border-cyan-500/50 transition-all">
+            <span className="font-semibold text-white">Daily Spend</span>
+            <span className="text-slate-400">Target: within daily limit</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-sm text-gray-500">
+        <div className="flex items-center gap-2 text-sm text-slate-400">
           <TrendingUp size={16} />
           Improve your score by optimizing spending and increasing savings.
         </div>

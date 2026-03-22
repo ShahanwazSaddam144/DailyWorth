@@ -18,6 +18,8 @@ import {
   ResponsiveContainer,
   CartesianGrid,
   Legend,
+  LineChart,
+  Line,
 } from "recharts";
 
 const IncomeCharts = () => {
@@ -84,11 +86,11 @@ const IncomeCharts = () => {
   return (
     <section className="mt-20 px-6 lg:px-12 flex flex-col gap-12">
 
-      <header className="flex flex-col gap-2 animate-fadeIn">
-        <h1 className="text-3xl font-bold text-gray-900">
+      <header className="flex flex-col gap-2 animate-slideInDown">
+        <h1 className="text-3xl font-bold text-white">
           Financial Insights
         </h1>
-        <p className="text-gray-600">
+        <p className="text-slate-300">
           Track your financial growth and spending patterns.
         </p>
       </header>
@@ -99,61 +101,62 @@ const IncomeCharts = () => {
             icon: <DollarSign className="text-green-400" size={28} />,
             title: "Average Salary",
             value: `$${stats.avgSalary}`,
-            color: "hover:scale-105 transform transition duration-300",
+            color: "from-green-500/20 to-green-600/20 border-green-500/30",
           },
           {
             icon: <TrendingUp className="text-blue-400" size={28} />,
             title: "Highest Salary",
             value: `$${stats.highestSalary}`,
-            color: "hover:scale-105 transform transition duration-300",
+            color: "from-blue-500/20 to-blue-600/20 border-blue-500/30",
           },
           {
             icon: <Calendar className="text-orange-400" size={28} />,
             title: "Max Daily Budget",
             value: `$${stats.maxDailyBudget}`,
-            color: "hover:scale-105 transform transition duration-300",
+            color: "from-orange-500/20 to-orange-600/20 border-orange-500/30",
           },
           {
             icon: <PiggyBank className="text-purple-400" size={28} />,
             title: "Total Savings",
             value: `$${stats.totalSaving}`,
-            color: "hover:scale-105 transform transition duration-300",
+            color: "from-purple-500/20 to-purple-600/20 border-purple-500/30",
           },
           {
-            icon: <Wallet className="text-teal-400" size={28} />,
+            icon: <Wallet className="text-cyan-400" size={28} />,
             title: "Average Budget",
             value: `$${stats.avgBudget}`,
-            color: "hover:scale-105 transform transition duration-300",
+            color: "from-cyan-500/20 to-cyan-600/20 border-cyan-500/30",
           },
         ].map((stat, idx) => (
           <div
             key={idx}
-            className={`bg-white rounded-xl p-6 flex gap-4 items-center shadow-lg animate-fadeIn ${stat.color}`}
+            className={`bg-gradient-to-br ${stat.color} border rounded-xl p-6 flex gap-4 items-center hover:border-opacity-100 transition-all duration-300 card-hover animate-slideInUp`}
+            style={{ animationDelay: `${idx * 0.1}s` }}
           >
             {stat.icon}
             <div>
-              <p className="text-sm text-gray-500">{stat.title}</p>
-              <p className="text-xl font-semibold text-gray-900">{stat.value}</p>
+              <p className="text-sm text-slate-400">{stat.title}</p>
+              <p className="text-xl font-semibold text-white">{stat.value}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 animate-fadeIn">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 animate-slideInUp">
 
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <div className="flex items-center gap-2 mb-4 font-semibold text-gray-700">
+        <div className="bg-slate-800/40 border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition-all">
+          <div className="flex items-center gap-2 mb-4 font-semibold text-white">
             <BarChart3 size={18} />
             Monthly Salary Trend
           </div>
 
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-              <XAxis dataKey="name" stroke="#6b7280" />
-              <YAxis stroke="#6b7280" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+              <XAxis dataKey="name" stroke="#94a3b8" />
+              <YAxis stroke="#94a3b8" />
               <Tooltip
-                contentStyle={{ backgroundColor: "#f9fafb", borderRadius: "8px", border: "none" }}
+                contentStyle={{ backgroundColor: "#1e293b", borderRadius: "8px", border: "1px solid #475569", color: "#f1f5f9" }}
               />
               <Bar
                 dataKey="salary"
@@ -163,27 +166,27 @@ const IncomeCharts = () => {
               />
               <defs>
                 <linearGradient id="salaryGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#60a5fa" />
-                  <stop offset="100%" stopColor="#3b82f6" />
+                  <stop offset="0%" stopColor="#3b82f6" />
+                  <stop offset="100%" stopColor="#1e40af" />
                 </linearGradient>
               </defs>
             </BarChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <div className="flex items-center gap-2 mb-4 font-semibold text-gray-700">
+        <div className="bg-slate-800/40 border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition-all">
+          <div className="flex items-center gap-2 mb-4 font-semibold text-white">
             <BarChart3 size={18} />
             Daily Budget Trend
           </div>
 
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-              <XAxis dataKey="name" stroke="#6b7280" />
-              <YAxis stroke="#6b7280" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+              <XAxis dataKey="name" stroke="#94a3b8" />
+              <YAxis stroke="#94a3b8" />
               <Tooltip
-                contentStyle={{ backgroundColor: "#f9fafb", borderRadius: "8px", border: "none" }}
+                contentStyle={{ backgroundColor: "#1e293b", borderRadius: "8px", border: "1px solid #475569", color: "#f1f5f9" }}
               />
               <Bar
                 dataKey="daily"
@@ -193,8 +196,8 @@ const IncomeCharts = () => {
               />
               <defs>
                 <linearGradient id="dailyGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#34d399" />
-                  <stop offset="100%" stopColor="#10b981" />
+                  <stop offset="0%" stopColor="#10b981" />
+                  <stop offset="100%" stopColor="#059669" />
                 </linearGradient>
               </defs>
             </BarChart>
