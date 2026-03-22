@@ -20,6 +20,7 @@ const FinancialHealthScore = () => {
     const fetchExpense = async () => {
       try {
         const res = await fetch("http://localhost:5000/api/expense", {
+          method: "GET",
           credentials: "include",
         });
 
@@ -27,7 +28,7 @@ const FinancialHealthScore = () => {
 
         if (!res.ok || !data?.data?.length) return;
 
-        const latest = data.data[data.data.length - 1];
+        const latest = data.data[data.data.length - 1]; // get last saved expense
 
         setForm({
           monthlySalary: Number(latest.monthlySalary) || 0,
