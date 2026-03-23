@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   DollarSign,
   BarChart2,
@@ -211,9 +212,11 @@ export default function Hero() {
           Set up your first budget and begin tracking expenses to achieve your
           financial goals.
         </p>
+        <Link href="#addIncome">
         <button className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50">
           Go to Budget Planner →
         </button>
+        </Link>
       </div>
     </section>
   );

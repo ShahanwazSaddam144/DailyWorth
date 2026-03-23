@@ -136,7 +136,7 @@ const IncomeCharts = () => {
             {stat.icon}
             <div>
               <p className="text-sm text-slate-400">{stat.title}</p>
-              <p className="text-xl font-semibold text-white">{stat.value}</p>
+              <p className="text-xl font-semibold text-white line-clamp-1">{stat.value}</p>
             </div>
           </div>
         ))}

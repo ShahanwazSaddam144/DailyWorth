@@ -122,7 +122,8 @@ const AddIncome = () => {
   };
 
   return (
-    <section className="py-12 px-6 lg:px-12 flex flex-col gap-12 bg-gradient-to-b from-transparent to-slate-900/20">
+    <section className="py-12 px-6 lg:px-12 flex flex-col gap-12 bg-gradient-to-b from-transparent to-slate-900/20"
+    id="addIncome">
       {alert.show && (
         <div
           className={`fixed top-24 right-6 px-6 py-4 rounded-xl text-white z-50 shadow-2xl animate-slideInDown font-semibold ${
