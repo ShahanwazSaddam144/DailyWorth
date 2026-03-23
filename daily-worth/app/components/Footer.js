@@ -1,9 +1,58 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    type: "success",
+  });
+
+  const showToast = (message, type = "success") => {
+    setToast({ show: true, message, type });
+
+    setTimeout(() => {
+      setToast((prev) => ({ ...prev, show: false }));
+    }, 3000);
+  };
+
+  const handleSubscribe = async () => {
+    if (!email) {
+      return showToast("Email is required", "error");
+    }
+
+    try {
+      setLoading(true);
+
+      const res = await fetch("http://localhost:5000/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        return showToast(data.message || "Something went wrong", "error");
+      }
+
+      showToast(data.message || "Subscribed successfully", "success");
+      setEmail("");
+    } catch (err) {
+      showToast("Server error", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const links = {
     Product: [
@@ -34,6 +83,24 @@ export default function Footer() {
 
   return (
     <footer className="bg-slate-950 border-t border-slate-800">
+      
+      {/* Toast */}
+      {toast.show && (
+        <div className="fixed top-6 right-6 z-[999] animate-slideInRight">
+          <div
+            className={`px-5 py-3 rounded-lg shadow-lg backdrop-blur-md border text-sm font-medium flex items-center gap-2
+              ${
+                toast.type === "success"
+                  ? "bg-slate-900/90 text-cyan-400 border-cyan-500"
+                  : "bg-slate-900/90 text-red-400 border-red-500"
+              }`}
+          >
+            {toast.type === "success" ? "✔" : "✖"}
+            {toast.message}
+          </div>
+        </div>
+      )}
+
       {/* Newsletter Section */}
       <div className="bg-gradient-to-r from-cyan-600 to-blue-600 py-12 px-6">
         <div className="max-w-4xl mx-auto text-center">
@@ -45,23 +112,32 @@ export default function Footer() {
             <input
               type="email"
               placeholder="your@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="flex-1 px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-gray-900 placeholder-cyan-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
             />
-            <button className="px-6 py-3 bg-white text-cyan-600 font-semibold rounded-lg hover:bg-cyan-50 transition-colors duration-300">
-              Subscribe
+            <button
+              onClick={handleSubscribe}
+              disabled={loading}
+              className="px-6 py-3 bg-white text-cyan-600 font-semibold rounded-lg hover:bg-cyan-50 transition-colors duration-300"
+            >
+              {loading ? "..." : "Subscribe"}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Main Footer Content */}
+      {/* Main Footer */}
       <div className="py-16 px-6">
         <div className="max-w-6xl mx-auto">
-          {/* Links Grid */}
+
+          {/* Links */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-12">
             {Object.entries(links).map(([category, items]) => (
-              <div key={category} className="animate-slideInUp">
-                <h4 className="text-white font-semibold mb-6 text-lg">{category}</h4>
+              <div key={category}>
+                <h4 className="text-white font-semibold mb-6 text-lg">
+                  {category}
+                </h4>
                 <ul className="space-y-3">
                   {items.map((link, idx) => (
                     <li key={idx}>
@@ -80,9 +156,10 @@ export default function Footer() {
 
           {/* Divider */}
           <div className="border-t border-slate-800 py-8">
-            {/* Social Links & Copyright */}
             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-              <div className="mb-6 md:mb-0 animate-slideInLeft">
+              
+              {/* Brand */}
+              <div className="mb-6 md:mb-0">
                 <h2 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2">
                   DailyWorth
                 </h2>
@@ -91,8 +168,8 @@ export default function Footer() {
                 </p>
               </div>
 
-              {/* Social Icons */}
-              <div className="flex gap-6 animate-slideInRight">
+              {/* Social */}
+              <div className="flex gap-6">
                 {[
                   { icon: "f", label: "Facebook" },
                   { icon: "𝕏", label: "Twitter" },
@@ -111,7 +188,7 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Bottom Footer */}
+            {/* Bottom */}
             <div className="mt-8 pt-8 border-t border-slate-800 flex flex-col md:flex-row md:items-center md:justify-between text-slate-400 text-sm">
               <p className="mb-4 md:mb-0">
                 &copy; {currentYear} DailyWorth. All rights reserved.
@@ -124,12 +201,9 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Floating Chat Widget Placeholder */}
+      {/* Chat Button */}
       <div className="fixed bottom-6 right-6 z-50">
-        <button
-          className="w-14 h-14 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-110 flex items-center justify-center font-bold text-xl"
-          title="Chat Support"
-        >
+        <button className="w-14 h-14 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-110 flex items-center justify-center font-bold text-xl">
           💬
         </button>
       </div>

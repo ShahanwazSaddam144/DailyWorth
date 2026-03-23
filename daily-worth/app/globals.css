@@ -39,6 +39,12 @@ body {
   to { opacity: 1; transform: scale(1); }
 }
 
+.animate-scaleIn {
+  opacity: 0;
+  animation: scaleIn 0.4s ease-out forwards;
+  animation-fill-mode: forwards;
+}
+
 @keyframes blob {
   0%, 100% { transform: translate(0, 0) scale(1); }
   33% { transform: translate(30px, -50px) scale(1.1); }
@@ -112,7 +118,7 @@ body {
 
 /* Smooth transitions for all interactive elements */
 button, input, select, textarea {
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 /* Custom scrollbar */
@@ -168,3 +174,4 @@ button, input, select, textarea {
   animation: slideInUp 0.6s ease-out forwards;
   opacity: 0;
 }
+

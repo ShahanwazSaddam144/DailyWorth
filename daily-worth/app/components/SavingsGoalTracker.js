@@ -6,11 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 export default function SavingsGoalTracker() {
-  const [goals, setGoals] = useState([
-    { id: 1, name: "Emergency Fund", target: 5000, current: 2500, emoji: "🛡️", daysLeft: 180 },
-    { id: 2, name: "Vacation", target: 3000, current: 1200, emoji: "✈️", daysLeft: 120 },
-    { id: 3, name: "New Laptop", target: 1500, current: 800, emoji: "💻", daysLeft: 90 }
-  ]);
+  const [goals, setGoals] = useState([]); // ✅ FIXED
 
   const [showForm, setShowForm] = useState(false);
   const [newGoal, setNewGoal] = useState({ name: "", target: "", emoji: "" });
