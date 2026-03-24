@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "DailyWorth - Master Financial Literacy",
+  title: "World Economy Simulator - Master Financial Literacy",
   description: "Innovative platform for financial literacy and economic awareness. Learn money management, track expenses, and achieve financial independence.",
   keywords: "financial literacy, economics, money management, financial education, financial independence",
   icons:{

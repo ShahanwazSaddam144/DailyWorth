@@ -28,6 +28,13 @@ export default function FeaturesShowcase() {
       benefits: ["Custom goals", "Progress tracking", "Milestones", "Achievements"]
     },
     {
+      icon: "🌍",
+      title: "World Economy Simulator",
+      description: "Experience global economics by managing real-world countries and their economies.",
+      color: "from-yellow-500 to-orange-500",
+      benefits: ["Country Management", "Economic Policies", "Real-time Simulation", "Educational Insights"]
+    },
+    {
       icon: "🔐",
       title: "Secure & Private",
       description: "Your financial data is encrypted and protected with enterprise-grade security.",
@@ -59,7 +66,7 @@ export default function FeaturesShowcase() {
                 onClick={() => setActiveTab(idx)}
                 className={`w-full text-left p-6 rounded-xl transition-all duration-300 border-2 ${
                   activeTab === idx
-                    ? `border-cyan-500 bg-gradient-to-r ${feature.color} bg-opacity-10 shadow-lg shadow-cyan-500/20`
+                    ? `border-cyan-500 bg-linear-to-r ${feature.color} bg-opacity-10 shadow-lg shadow-cyan-500/20`
                     : "border-slate-700 bg-slate-800 hover:border-slate-600"
                 } animate-slideInLeft`}
                 style={{ animationDelay: `${idx * 0.1}s` }}
@@ -79,7 +86,7 @@ export default function FeaturesShowcase() {
           <div className="animate-slideInRight">
             <div className="bg-slate-800 rounded-2xl p-8 border border-slate-700 backdrop-blur-xl">
               <div className="mb-6 animate-scaleIn">
-                <div className={`w-20 h-20 rounded-xl bg-gradient-to-br ${features[activeTab].color} flex items-center justify-center text-4xl`}>
+                <div className={`w-20 h-20 rounded-xl bg-linear-to-br ${features[activeTab].color} flex items-center justify-center text-4xl`}>
                   {features[activeTab].icon}
                 </div>
               </div>
@@ -100,13 +107,13 @@ export default function FeaturesShowcase() {
                     className="flex items-center gap-3 text-slate-300 animate-slideInLeft"
                     style={{ animationDelay: `${0.2 + idx * 0.05}s` }}
                   >
-                    <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${features[activeTab].color}`}></span>
+                    <span className={`w-2 h-2 rounded-full bg-linear-to-r ${features[activeTab].color}`}></span>
                     {benefit}
                   </div>
                 ))}
               </div>
 
-              <button className={`mt-8 w-full py-3 px-6 bg-gradient-to-r ${features[activeTab].color} text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105`}>
+              <button className={`mt-8 w-full py-3 px-6 bg-linear-to-r ${features[activeTab].color} text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105`}>
                 Learn More
               </button>
             </div>
@@ -123,10 +130,10 @@ export default function FeaturesShowcase() {
           ].map((stat, idx) => (
             <div
               key={idx}
-              className="text-center p-6 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-slate-700 hover:border-cyan-500 transition-all duration-300 card-hover animate-slideInUp"
+              className="text-center p-6 bg-linear-to-br from-slate-800 to-slate-900 rounded-xl border border-slate-700 hover:border-cyan-500 transition-all duration-300 card-hover animate-slideInUp"
               style={{ animationDelay: `${idx * 0.1}s` }}
             >
-              <p className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+              <p className="text-3xl font-bold bg-linear-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
                 {stat.number}
               </p>
               <p className="text-slate-400 mt-2">{stat.label}</p>
